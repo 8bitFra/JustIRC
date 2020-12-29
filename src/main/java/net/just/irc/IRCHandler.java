@@ -44,7 +44,7 @@ public class IRCHandler
 			{
 				e2.printStackTrace();
 				
-				ChatUtils.message("§cUnknown Host");
+				ChatUtils.message("\u00A7cUnknown Host");
 				socket = null;
 				
 			} catch (IOException e2) 
@@ -64,7 +64,7 @@ public class IRCHandler
 	                		//System.out.println(line);
 	                		if(line.contains("incorrect channel key"))
 	                		{
-	                			ChatUtils.message("§cCannot join channel (incorrect channel key)");
+	                			ChatUtils.message("\u00A7cCannot join channel (incorrect channel key)");
 	                			closeConnection();
 	                		}
 	                	}
@@ -72,8 +72,7 @@ public class IRCHandler
 	                	{
 	                		StringTokenizer st = new StringTokenizer(line,":");
 	                		StringTokenizer st1 = new StringTokenizer(st.nextToken(),"!");
-	                		ChatUtils.message("§c" + st1.nextToken() + " §f>> " + st.nextToken());
-	                		//System.out.println("§c" + st1.nextToken() + " §f>> " + st.nextToken());
+	                		ChatUtils.message("\u00A7c" + st1.nextToken() + " \u00A7f>> " + st.nextToken());
 	                	}
 	                }
 	            } catch (Exception e) {
@@ -86,8 +85,8 @@ public class IRCHandler
 	        if(login(writer))
 	        {
 	        	
-	        	ChatUtils.message("§aconnected " + server + " success");
-		        ChatUtils.message("§6waiting for the channel...");
+	        	ChatUtils.message("\u00A7aconnected " + server + " success");
+		        ChatUtils.message("\u00A76waiting for the channel...");
 	        	
 		        try
 		        {
@@ -107,19 +106,19 @@ public class IRCHandler
 	    			}
 	        		if(isOpen())
 	        		{
-	        			ChatUtils.message("§e[§aDONE§e]");
+	        			ChatUtils.message("\u00A7e[\u00A7aDONE\u00A7e]");
 	        			flag = false;
 	        		}
 	        	}
 	        	else
 	        	{
-	        		ChatUtils.message("§c Channel connection failed!");
+	        		ChatUtils.message("\u00A7c Channel connection failed!");
 	        		closeConnection();
 	        	}
 	        }
 	        else
 	        {
-	        	ChatUtils.message("§c Login failed!");
+	        	ChatUtils.message("\u00A7c Login failed!");
 	        	closeConnection();
 	        }
 	        

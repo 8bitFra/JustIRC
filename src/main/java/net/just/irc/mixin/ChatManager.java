@@ -17,11 +17,11 @@ public class ChatManager
 	private String global = "!";
 	private String previusGlobal = null;
 	
-	private String help = "\n\n§cHELP §f\n\n"
+	private String help = "\n\n\u00A7cHELP \u00A7f\n\n"
 			+ prefix + "status - check the irc connecion status\n\n"
-			+ prefix + "connect - connect to the irc server \n§e(usage: "+prefix+"connect serverip;nick;channel;password)§f\n\n"
+			+ prefix + "connect - connect to the irc server \n\u00A7e(usage: "+prefix+"connect serverip;nick;channel;password)\u00A7f\n\n"
 			+ prefix + "disconnect - disctonnect from the irc server\n\n"
-			+ "§9>>§c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' §9<<§f\n\n";
+			+ "\u00A79>>\u00A7c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' \u00A79<<\u00A7f\n\n";
 	
 	
 	private IRCHandler irc = null;
@@ -38,11 +38,11 @@ public class ChatManager
     	{
     		if(irc!=null && irc.isOpen())
     		{
-    			ChatUtils.message("§aConnected to this server: §e" + irc.getServer() + "§a Channel: §e" + irc.getChannelname());
+    			ChatUtils.message("\u00A7aConnected to this server: \u00A7e" + irc.getServer() + "\u00A7a Channel: \u00A7e" + irc.getChannelname());
     		}
     		else
     		{
-    			ChatUtils.message("§cDisconnected");
+    			ChatUtils.message("\u00A7cDisconnected");
     		}
     		info.cancel();
     	}
@@ -50,8 +50,8 @@ public class ChatManager
     	{
     		if(message.equals(prefix + "connect"))
     		{
-    			ChatUtils.message("§cSyntax Error\n"
-    							  + "§e(usage: "+prefix+"connect serverip;nick;channel;password)§f");
+    			ChatUtils.message("\u00A7cSyntax Error\n"
+    							  + "\u00A7e(usage: "+prefix+"connect serverip;nick;channel;password)\u00A7f");
     		}
     		else
     		{
@@ -68,7 +68,7 @@ public class ChatManager
         		
         		if(fields.length<3)
         		{
-        			ChatUtils.message("§cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
+        			ChatUtils.message("\u00A7cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
         		}
         		else
         		{
@@ -96,7 +96,7 @@ public class ChatManager
             		}
             		else
             		{
-            			ChatUtils.message("§cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
+            			ChatUtils.message("\u00A7cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
             		}
         			
         		}
@@ -110,7 +110,7 @@ public class ChatManager
     		if(irc!=null && irc.isOpen())
     		{
     			irc.closeConnection();
-    			ChatUtils.message("§cDisconnected");
+    			ChatUtils.message("\u00A7cDisconnected");
     		}
     		
     		info.cancel();
@@ -126,7 +126,7 @@ public class ChatManager
     		else if(irc!=null && irc.isOpen() && !String.valueOf(message.charAt(0)).equals("/") && !message.equals(previusGlobal))
     		{
     			irc.sendGroupMsg(message);
-    			ChatUtils.message("§b" + irc.getNick() + " §f>> " + message);
+    			ChatUtils.message("\u00A7b" + irc.getNick() + " \u00A7f>> " + message);
     			info.cancel();
     		}
     		
