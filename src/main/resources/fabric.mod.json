@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "justirc",
+  "version": "${version}",
+
+  "name": "Just Irc",
+  "description": "A minecraft IRC client mod!",
+  "authors": [
+    "8bitFra"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT License",
+  "icon": "assets/justirc/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.just.irc.Main"
+    ]
+  },
+  "mixins": [
+    "justirc.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
