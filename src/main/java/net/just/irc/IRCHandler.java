@@ -2,7 +2,6 @@ package net.just.irc;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 
 public class IRCHandler 
@@ -70,9 +69,12 @@ public class IRCHandler
 	                	}
 	                	else
 	                	{
-	                		StringTokenizer st = new StringTokenizer(line,":");
-	                		StringTokenizer st1 = new StringTokenizer(st.nextToken(),"!");
-	                		ChatUtils.message("\u00A7c" + st1.nextToken() + " \u00A7f>> " + st.nextToken());
+	                		String[] f1 = line.split(":");
+	                		String[] f2 = f1[1].split("!");
+	                		/*StringTokenizer st = new StringTokenizer(line,":");
+	                		StringTokenizer st1 = new StringTokenizer(st.nextToken(),"!");*/
+	                		ChatUtils.message("\u00A7c" + f2[0] + " \u00A7f>> " + f1[2]);
+	                		//ChatUtils.message(line);
 	                	}
 	                }
 	            } catch (Exception e) {
@@ -99,7 +101,7 @@ public class IRCHandler
 	        	if(join("#" + channelname + " " + password))
 	        	{
 	        		try {
-	    				Thread.sleep(2000);
+	    				Thread.sleep(10000);
 	    			} catch (InterruptedException e) {
 	    				// TODO Auto-generated catch block
 	    				e.printStackTrace();
