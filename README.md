@@ -10,6 +10,7 @@ This is my very first mod I create, so it kinda sucks. I hope to improve it over
 
 <a href="https://github.com/8bitFra/JustIRC"><img src="https://raw.githubusercontent.com/8bitFra/JustIRC/main/images/help.png" title="help" alt="help" width="545" height="218"></a>
 
+
 ### Tested on irc.freenode.net and a local server created with InspIRCd
 
 ### Known issues
