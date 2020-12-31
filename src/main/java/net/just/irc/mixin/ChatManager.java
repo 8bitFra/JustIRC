@@ -1,6 +1,7 @@
 package net.just.irc.mixin;
 import net.just.irc.ChatUtils;
 import net.just.irc.IRCHandler;
+import net.just.irc.Main;
 import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.StringTokenizer;
@@ -24,7 +25,6 @@ public class ChatManager
 			+ "\u00A79>>\u00A7c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' \u00A79<<\u00A7f\n\n";
 	
 	
-	private IRCHandler irc = null;
 	
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo info) 
@@ -36,9 +36,9 @@ public class ChatManager
     	}
     	else if(message.equals(prefix + "status"))
     	{
-    		if(irc!=null && irc.isOpen())
+    		if(Main.irc!=null && Main.irc.isOpen())
     		{
-    			ChatUtils.message("\u00A7aConnected to this server: \u00A7e" + irc.getServer() + "\u00A7a Channel: \u00A7e" + irc.getChannelname());
+    			ChatUtils.message("\u00A7aConnected to this server: \u00A7e" + Main.irc.getServer() + "\u00A7a Channel: \u00A7e" + Main.irc.getChannelname());
     		}
     		else
     		{
@@ -82,17 +82,17 @@ public class ChatManager
         			
         			if(ip!="" && nick!="" && channel!="")
             		{
-        				if(irc != null)
+        				if(Main.irc != null)
         				{
-        					if(irc.isOpen())
+        					if(Main.irc.isOpen())
         					{
-        						irc.closeConnection();
+        						Main.irc.closeConnection();
         					}	
         				}
         				
-            			irc = new IRCHandler(ip,nick,channel,password);
+        				Main.irc = new IRCHandler(ip,nick,channel,password);
 
-            			irc.startConn();
+        				Main.irc.startConn();
             		}
             		else
             		{
@@ -107,9 +107,9 @@ public class ChatManager
     	}
     	else if(message.equals(prefix + "disconnect"))
     	{
-    		if(irc!=null && irc.isOpen())
+    		if(Main.irc!=null && Main.irc.isOpen())
     		{
-    			irc.closeConnection();
+    			Main.irc.closeConnection();
     			ChatUtils.message("\u00A7cDisconnected");
     		}
     		
@@ -117,16 +117,16 @@ public class ChatManager
     	}
     	else
     	{
-    		if (irc!=null && irc.isOpen() && String.valueOf(message.charAt(0)).equals(global))
+    		if (Main.irc!=null && Main.irc.isOpen() && String.valueOf(message.charAt(0)).equals(global))
     		{
     			previusGlobal = message.substring(1, message.length());
     			ChatUtils.sudomessage(message.substring(1, message.length()));
     			info.cancel();
     		}
-    		else if(irc!=null && irc.isOpen() && !String.valueOf(message.charAt(0)).equals("/") && !message.equals(previusGlobal))
+    		else if(Main.irc!=null && Main.irc.isOpen() && !String.valueOf(message.charAt(0)).equals("/") && !message.equals(previusGlobal))
     		{
-    			irc.sendGroupMsg(message);
-    			ChatUtils.message("\u00A7b" + irc.getNick() + " \u00A7f>> " + message);
+    			Main.irc.sendGroupMsg(message);
+    			ChatUtils.message("\u00A7b" + Main.irc.getNick() + " \u00A7f>> " + message);
     			info.cancel();
     		}
     		
