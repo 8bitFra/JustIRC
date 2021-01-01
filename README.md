@@ -16,4 +16,4 @@ This is my very first mod I create, so it kinda sucks. I hope to improve it over
 ### Known issues
  - After a period of inactivity, the mod disconnects from the channel
  - Entering a wrong ip in some cases can cause the client to crash
- - Player death causes data loss
+ - <s>Player death causes data loss</s>
