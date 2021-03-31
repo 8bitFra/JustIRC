@@ -26,5 +26,10 @@ public enum ChatUtils
 	{
 		MC.player.sendChatMessage(message);
 	}
+	
+	public static String getUsername()
+	{
+		return MC.player.getName().getString();
+	}
 
 }

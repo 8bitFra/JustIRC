@@ -14,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ClientPlayerEntity.class)
 public class ChatManager 
 {
-	private String prefix = "#";
+	private String prefix = "@";
 	private String global = "!";
 	private String previusGlobal = null;
 	
 	private String help = "\n\n\u00A7cHELP \u00A7f\n\n"
 			+ prefix + "status - check the irc connecion status\n\n"
-			+ prefix + "connect - connect to the irc server \n\u00A7e(usage: "+prefix+"connect serverip;nick;channel;password)\u00A7f\n\n"
+			+ prefix + "connect - connect to the irc server \n\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f\n\n"
 			+ prefix + "disconnect - disctonnect from the irc server\n\n"
 			+ "\u00A79>>\u00A7c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' \u00A79<<\u00A7f\n\n";
 	
@@ -51,7 +51,7 @@ public class ChatManager
     		if(message.equals(prefix + "connect"))
     		{
     			ChatUtils.message("\u00A7cSyntax Error\n"
-    							  + "\u00A7e(usage: "+prefix+"connect serverip;nick;channel;password)\u00A7f");
+    							  + "\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f");
     		}
     		else
     		{
@@ -66,23 +66,23 @@ public class ChatManager
         		String channel = "";
         		String password = "";
         		
-        		if(fields.length<3)
+        		if(fields.length<2)
         		{
         			ChatUtils.message("\u00A7cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
         		}
         		else
-        		{
+        		{  			
         			ip = fields[0];
-        			nick = fields[1];
-        			channel = fields[2];
-        			if(fields.length>3)
+        			nick = ChatUtils.getUsername();
+        			channel = fields[1];
+        			if(fields.length>2)
         			{
-        				password = fields[3];
+        				password = fields[2];
         			}
         			
         			if(ip!="" && nick!="" && channel!="")
             		{
-        				if(Main.irc != null)
+        				if(Main.irc != null && Main.irc.getSocket()!=null)
         				{
         					if(Main.irc.isOpen())
         					{
