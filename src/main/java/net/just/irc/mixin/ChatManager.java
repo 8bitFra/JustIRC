@@ -103,7 +103,6 @@ public class ChatManager
 
             			if(!Character.isDigit(nick.charAt(0)))
             			{
-            				ChatUtils.message(nick);
             				takename = true;
             				if(ip!="" && nick!="" && channel!="")
                     		{
