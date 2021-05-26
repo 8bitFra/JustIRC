@@ -2,6 +2,7 @@ package net.just.irc.mixin;
 import net.just.irc.ChatUtils;
 import net.just.irc.IRCHandler;
 import net.just.irc.Main;
+import net.just.irc.ircgroup;
 import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.StringTokenizer;
@@ -32,7 +33,6 @@ public class ChatManager
 			+ prefix + "connect - connect to the irc server \n\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f\n\n"
 			+ prefix + "disconnect - disctonnect from the irc server\n\n"
 			+ "\u00A79>>\u00A7c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' \u00A79<<\u00A7f\n\n";
-	
 	
 	
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
@@ -73,8 +73,32 @@ public class ChatManager
         	{
         		if(message.equals(prefix + "connect"))
         		{
-        			ChatUtils.message("\u00A7cSyntax Error\n"
-        							  + "\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f");
+        			if(ircgroup.getIp()!="" && ircgroup.getChannel()!="" && ircgroup.getBackupnick()!="" && ircgroup.getChannel()!="")
+        			{
+        				if(Main.irc != null && Main.irc.getSocket()!=null)
+        				{
+        					if(Main.irc.isOpen())
+        					{
+        						Main.irc.closeConnection();
+        					}	
+        				}
+        				
+        				String nick = ChatUtils.getUsername();
+        				
+        				if(Character.isDigit(nick.charAt(0)))
+        					nick = ircgroup.getBackupnick();
+        				
+        				Main.irc = new IRCHandler(ircgroup.getIp(),nick,ircgroup.getChannel(),ircgroup.getPassword());
+
+        				Main.irc.startConn();
+        			}
+        			else
+        			{
+        				ChatUtils.message("\u00A7cError\n"
+        					  + "\u00A7eMissing config fields or Syntax Error\n"
+  							  + "\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f");
+        				System.out.println("Unable to Connect: Missing config fields or Syntax Error");
+        			}
         		}
         		else
         		{

@@ -1,0 +1,7 @@
+{
+	"config.justirc.ircgroup.ip": "IP",
+	"config.justirc.ircgroup.backupnick": "Backup Nickname",
+	"config.justirc.ircgroup.channel": "Channel",
+	"config.justirc.ircgroup.password": "Password",
+	"config.justirc.ircgroup.autoconnect": "Startup Connect"
+}
