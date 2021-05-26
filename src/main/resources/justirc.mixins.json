@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "ChatManager"
+    "ChatManager",
+    "EntitySpawnManager"
   ],
   "injectors": {
     "defaultRequire": 1
