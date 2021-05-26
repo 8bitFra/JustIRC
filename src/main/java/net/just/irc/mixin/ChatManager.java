@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+
+
 @Mixin(ClientPlayerEntity.class)
 public class ChatManager 
 {
@@ -38,7 +40,6 @@ public class ChatManager
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo info) 
     {
-
     	
     	if(nickrequired)
     	{
