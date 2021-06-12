@@ -2,7 +2,7 @@ package net.just.irc.mixin;
 import net.just.irc.ChatUtils;
 import net.just.irc.IRCHandler;
 import net.just.irc.Main;
-import net.just.irc.ircgroup;
+import net.just.irc.Ircgroup;
 import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.StringTokenizer;
@@ -74,7 +74,7 @@ public class ChatManager
         	{
         		if(message.equals(prefix + "connect"))
         		{
-        			if(ircgroup.getIp()!="" && ircgroup.getChannel()!="" && ircgroup.getBackupnick()!="" && ircgroup.getChannel()!="")
+        			if(Ircgroup.getIp()!="" && Ircgroup.getChannel()!="" && Ircgroup.getBackupnick()!="" && Ircgroup.getChannel()!="")
         			{
         				if(Main.irc != null && Main.irc.getSocket()!=null)
         				{
@@ -87,9 +87,9 @@ public class ChatManager
         				String nick = ChatUtils.getUsername();
         				
         				if(Character.isDigit(nick.charAt(0)))
-        					nick = ircgroup.getBackupnick();
+        					nick = Ircgroup.getBackupnick();
         				
-        				Main.irc = new IRCHandler(ircgroup.getIp(),nick,ircgroup.getChannel(),ircgroup.getPassword());
+        				Main.irc = new IRCHandler(Ircgroup.getIp(),nick,Ircgroup.getChannel(),Ircgroup.getPassword());
 
         				Main.irc.startConn();
         			}

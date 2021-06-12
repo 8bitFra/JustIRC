@@ -5,13 +5,11 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 
 import org.lwjgl.glfw.GLFW;
 
-import me.lortseam.completeconfig.data.Config;
-import me.lortseam.completeconfig.data.Config.Builder;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 
@@ -32,16 +30,18 @@ public class Main implements ModInitializer {
     	));
 	
 	
-	private Config configinfos;
+	private static Ircgroup settings;
 	
     @Override
     public void onInitialize() {
     	
     	System.out.println("Just IRC has started.");
     	
-        Builder builder = Config.builder(MOD_ID);
-        builder.add(new ircgroup());
-        configinfos = builder.build();
+    	settings = new Ircgroup();
+        settings.load();
+
+    	ConfigScreenBuilder.setMain(MOD_ID, new ClothConfigScreenBuilder());
+    	
               
         
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -49,7 +49,7 @@ public class Main implements ModInitializer {
             {
         		ConfigScreenBuilder screenBuilder = new ClothConfigScreenBuilder();
         		MinecraftClient instance = MinecraftClient.getInstance();
-    			Screen configScreen = screenBuilder.build(instance.currentScreen, configinfos);
+    			Screen configScreen = screenBuilder.build(instance.currentScreen, settings);
         		
         		instance.openScreen(configScreen);
             }

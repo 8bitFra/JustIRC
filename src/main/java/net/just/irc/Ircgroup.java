@@ -3,10 +3,12 @@ package net.just.irc;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
 import me.lortseam.completeconfig.api.ConfigGroup;
+import me.lortseam.completeconfig.data.Config;
 
 @ConfigEntries
-public class ircgroup implements ConfigGroup
+public class Ircgroup extends Config implements ConfigGroup
 {
+	
 	private static String ip = "";
     private static String backupnick = "";
     private static String channel = "";
@@ -14,6 +16,10 @@ public class ircgroup implements ConfigGroup
     @ConfigEntry(requiresRestart = true)
     private static boolean autoconnect;
     
+    public Ircgroup()
+    {
+    	super(Main.MOD_ID);
+    }
     
 	public static String getIp() {
 		return ip;
