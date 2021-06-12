@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.just.irc.Main"
+    ],
+    "client": [
+      "net.just.irc.MainClient"
     ]
   },
   "mixins": [
