@@ -34,6 +34,9 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 	
+	include("com.gitlab.Lortseam:completeconfig:1.0.0")
+	include("me.shedaniel.cloth:cloth-config-fabric:5.0.34")
+	
 	// Replace Tag with the current version you can find at the top of this page
     modImplementation("com.gitlab.Lortseam:completeconfig:1.0.0")
 }
