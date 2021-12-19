@@ -40,7 +40,7 @@ public class MainClient implements ClientModInitializer
         		MinecraftClient instance = MinecraftClient.getInstance();
     			Screen configScreen = screenBuilder.build(instance.currentScreen, Main.getSettings());
         		
-        		instance.openScreen(configScreen);
+        		instance.setScreen(configScreen);
             }
         });
 		

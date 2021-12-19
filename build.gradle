@@ -1,10 +1,10 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -34,11 +34,13 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 	
-	include("com.gitlab.Lortseam:completeconfig:1.0.0")
-	include("me.shedaniel.cloth:cloth-config-fabric:5.0.34")
+	include("com.gitlab.Lortseam:completeconfig:1.3.3")
+	modApi("me.shedaniel.cloth:cloth-config-fabric:6.1.48") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 	
 	// Replace Tag with the current version you can find at the top of this page
-    modImplementation("com.gitlab.Lortseam:completeconfig:1.0.0")
+    modImplementation("com.gitlab.Lortseam:completeconfig:1.3.3")
 }
 
 processResources {
@@ -50,14 +52,8 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	// ensure that the encoding is set to UTF-8, no matter what the system default is
-	// this fixes some edge cases with special characters not displaying correctly
-	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-	// If Javadoc is generated, this must be specified in that task too.
-	it.options.encoding = "UTF-8"
-
-	// Minecraft 1.17 (21w19a) upwards uses Java 16.
-	it.options.release = 16
+	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+	it.options.release = 17
 }
 
 java {
@@ -77,13 +73,7 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+			from components.java
 		}
 	}
 
