@@ -5,7 +5,7 @@ import me.lortseam.completeconfig.api.ConfigEntry;
 import me.lortseam.completeconfig.api.ConfigGroup;
 import me.lortseam.completeconfig.data.Config;
 
-@ConfigEntries
+@ConfigEntries(includeAll = true)
 public class Ircgroup extends Config implements ConfigGroup
 {
 	

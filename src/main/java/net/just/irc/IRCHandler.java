@@ -104,12 +104,13 @@ public class IRCHandler
             			//ChatUtils.message("Rispondo al PING: PONG");
             		}
                 	
+                	//ChatUtils.message(line);
                 	
                 	if(flag)
                 	{
-                		if(line.contains("incorrect channel key"))
+                		if(line.contains("Cannot join channel"))
                 		{
-                			ChatUtils.message("\u00A7cCannot join channel (incorrect channel key)");
+                			ChatUtils.message("\u00A7cCannot join channel (probably incorrect channel key)");
                 			closeConnection();
                 		}
                 		
@@ -132,7 +133,9 @@ public class IRCHandler
                 		{
                 			String[] f1 = line.split(":");
                         	String[] f2 = f1[1].split("!");
-                        	ChatUtils.message("\u00A7c" + f2[0] + " \u00A7f>> " + f1[2]);
+                        	String[] message = line.split("#"+channelname+" :");
+                        	
+                        	ChatUtils.message("\u00A7c" + f2[0] + " \u00A7f>> " + message[1]);
                 		}
                 		catch(Exception e) {}
                 	}

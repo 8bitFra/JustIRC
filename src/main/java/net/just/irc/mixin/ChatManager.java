@@ -4,6 +4,7 @@ import net.just.irc.IRCHandler;
 import net.just.irc.Main;
 import net.just.irc.Ircgroup;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.text.Text;
 
 import java.util.StringTokenizer;
 
@@ -11,6 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+
 
 
 
@@ -38,7 +41,7 @@ public class ChatManager
 	
 	
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
-    private void onSendChatMessage(String message, CallbackInfo info) 
+    private void onSendChatMessage(String message, Text preview, CallbackInfo info) 
     {
     	
     	if(nickrequired)

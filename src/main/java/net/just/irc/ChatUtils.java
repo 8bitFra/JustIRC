@@ -2,7 +2,6 @@ package net.just.irc;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 public enum ChatUtils
 {
@@ -19,12 +18,12 @@ public enum ChatUtils
 	
 	public static void message(String message)
 	{
-		component(new LiteralText(message));
+		component (Text.literal(message));
 	}
 	
 	public static void sudomessage(String message)
 	{
-		MC.player.sendChatMessage(message);
+		MC.player.sendChatMessage(message, null);
 	}
 	
 	public static String getUsername()
