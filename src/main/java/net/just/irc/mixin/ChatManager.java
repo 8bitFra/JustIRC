@@ -36,7 +36,7 @@ public class ChatManager
 	private String help = "\n\n\u00A7cHELP \u00A7f\n\n"
 			+ prefix + "status - check the irc connecion status\n\n"
 			+ prefix + "connect - connect to the irc server \n\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f\n\n"
-			+ prefix + "disconnect - disctonnect from the irc server\n\n"
+			+ prefix + "disconnect - disconnect from the irc server\n\n"
 			+ "\u00A79>>\u00A7c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' \u00A79<<\u00A7f\n\n";
 	
 	
