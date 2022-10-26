@@ -17,6 +17,9 @@ repositories {
     maven {
         url "https://maven.terraformersmc.com/"
     }
+	maven { 
+		url "https://maven.terraformersmc.com/releases/" 
+	}
     maven {
         url "https://maven.shedaniel.me/"
     }
@@ -39,13 +42,16 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 	
-	include("com.gitlab.Lortseam:completeconfig:2.0.1")
-	modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
+	//
+	include("com.gitlab.Lortseam.completeconfig:base:2.0.1")
+	include("com.gitlab.Lortseam.completeconfig:gui-cloth:2.0.1")
+	include("me.shedaniel.cloth:cloth-config-fabric:8.2.88")
+	//modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
+    //    exclude(group: "net.fabricmc.fabric-api")
+    //}
 	
 	// Replace Tag with the current version you can find at the top of this page
-    modImplementation("com.gitlab.Lortseam:completeconfig:2.0.1")
+    modImplementation("com.gitlab.Lortseam.completeconfig:base:2.0.1")
 	modImplementation("com.gitlab.Lortseam.completeconfig:gui-cloth:2.0.1")
 }
 
