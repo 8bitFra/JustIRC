@@ -22,7 +22,3 @@ If you have a Minecraft name that start with a number, if you can't connect to t
 
 If you are using the auto connect option, it will start about 10 seconds after entering a world.
 
-### Known issues
- - <s>After a period of inactivity, the mod disconnects from the channel</s>
- - <s>Entering a wrong ip in some cases can cause the client to crash</s>
- - <s>Player death causes data loss</s>
