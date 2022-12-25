@@ -38,21 +38,22 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	// Uncomment the following line to enable the deprecated Fabric API modules. 
+	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
-	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-	// You may need to force-disable transitiveness on them.
+	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 	
 	//
-	include("com.gitlab.Lortseam.completeconfig:base:2.0.1")
-	include("com.gitlab.Lortseam.completeconfig:gui-cloth:2.0.1")
-	include("me.shedaniel.cloth:cloth-config-fabric:8.2.88")
-	//modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
+	include("com.github.Lortseam.completeconfig:base:2.2.0")
+	include("com.github.Lortseam.completeconfig:gui-cloth:2.2.0")
+	include("me.shedaniel.cloth:cloth-config-fabric:9.0.94")
+	//modApi("me.shedaniel.cloth:cloth-config-fabric:9.0.94") {
     //    exclude(group: "net.fabricmc.fabric-api")
     //}
 	
 	// Replace Tag with the current version you can find at the top of this page
-    modImplementation("com.gitlab.Lortseam.completeconfig:base:2.0.1")
-	modImplementation("com.gitlab.Lortseam.completeconfig:gui-cloth:2.0.1")
+    modImplementation("com.github.Lortseam.completeconfig:base:2.2.0")
+	modImplementation("com.github.Lortseam.completeconfig:gui-cloth:2.2.0")
 }
 
 processResources {

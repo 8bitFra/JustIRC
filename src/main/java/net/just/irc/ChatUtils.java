@@ -7,12 +7,13 @@ public enum ChatUtils
 {
 	;
 	
-	private static final MinecraftClient MC = MinecraftClient.getInstance();
+	private static final MinecraftClient MCInstance = MinecraftClient.getInstance();
+
 	
 
 	public static void component(Text component)
 	{
-		ChatHud chatHud = MC.inGameHud.getChatHud();
+		ChatHud chatHud = MCInstance.inGameHud.getChatHud();
 		chatHud.addMessage(component);
 	}
 	
@@ -23,12 +24,14 @@ public enum ChatUtils
 	
 	public static void sudomessage(String message)
 	{
-		MC.player.sendChatMessage(message, null);
+		//MC.player.sendChatMessage(message, null);
+		MCInstance.getNetworkHandler().sendChatMessage(message);
+		
 	}
 	
 	public static String getUsername()
 	{
-		return MC.player.getName().getString();
+		return MCInstance.player.getName().getString();
 	}
 
 }
