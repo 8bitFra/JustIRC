@@ -23,16 +23,23 @@
     ],
     "client": [
       "net.just.irc.MainClient"
-    ]
+    ],
+    "modmenu":[
+		"net.just.irc.ModMenuIntegration"
+	]
   },
   "mixins": [
-    "justirc.mixins.json"
+    "justirc.mixins.json",
+    {
+		"config": "justirc.client.mixins.json",
+		"environment": "client"
+	}
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.11",
+    "fabricloader": ">=0.14.23",
     "fabric-api": "*",
-    "minecraft": "~1.19.3",
+    "minecraft": "~1.20.2",
     "java": ">=17"
   },
   "suggests": {

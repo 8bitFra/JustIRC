@@ -3,7 +3,9 @@
 	"config.justirc.ircgroup.backupnick": "Backup Nickname",
 	"config.justirc.ircgroup.channel": "Channel",
 	"config.justirc.ircgroup.password": "Password",
+	"config.justirc.ircgroup.port": "Port",
 	"config.justirc.ircgroup.autoconnect": "Startup Connect",
 	"key.justirc.config": "Config GUI",
+	"key.justirc.connection": "connect/disconnect",
 	"category.justirc.main": "Just IRC"
 }

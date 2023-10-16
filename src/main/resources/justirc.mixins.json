@@ -1,15 +1,10 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "net.just.irc.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-  ],
-  "client": [
-    "ChatManager",
-    "ClientPlayNetworkHandlerMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"package": "net.just.irc.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }

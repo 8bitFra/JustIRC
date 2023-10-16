@@ -13,6 +13,7 @@ public class Ircgroup extends Config implements ConfigGroup
     private static String backupnick = "";
     private static String channel = "";
     private static String password = "";
+    private static Integer port = 6667;
     @ConfigEntry(requiresRestart = true)
     private static boolean autoconnect;
     
@@ -32,6 +33,9 @@ public class Ircgroup extends Config implements ConfigGroup
 	}
 	public static String getPassword() {
 		return password;
+	}
+	public static Integer getPort() {
+		return port;
 	}
 	public static boolean isAutoconnect() {
 		return autoconnect;

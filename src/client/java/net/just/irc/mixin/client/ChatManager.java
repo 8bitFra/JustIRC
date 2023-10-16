@@ -1,7 +1,8 @@
-package net.just.irc.mixin;
+package net.just.irc.mixin.client;
 import net.just.irc.ChatUtils;
 import net.just.irc.IRCHandler;
 import net.just.irc.Main;
+import net.just.irc.MainClient;
 import net.just.irc.Ircgroup;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 
@@ -30,11 +31,12 @@ public class ChatManager
 	private String nick = "";
 	private String channel = "";
 	private String password = "";
+	private Integer port = 6667;
 	
 	
 	private String help = "\n\n\u00A7cHELP \u00A7f\n\n"
 			+ prefix + "status - check the irc connecion status\n\n"
-			+ prefix + "connect - connect to the irc server \n\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f\n\n"
+			+ prefix + "connect - connect to the irc server \n\u00A7eusage: "+prefix+"connect serverip;port;channel;password \n(password is optional)\u00A7f\n\n"
 			+ prefix + "disconnect - disconnect from the irc server\n\n"
 			+ "\u00A79>>\u00A7c When an irc connection is active, if you want to write in the normal chat you must use the prefix '"+global+"' \u00A79<<\u00A7f\n\n";
 	
@@ -49,7 +51,7 @@ public class ChatManager
     		nickrequired = false;
     		takename = false;
     		
-    		ChatUtils.sudomessage(prefix+"connect "+ip+";"+channel+";"+password);
+    		ChatUtils.sudomessage(prefix+"connect "+ip+";"+port+";"+channel+";"+password);
     		
     		info.cancel();
     	}
@@ -62,9 +64,9 @@ public class ChatManager
         	}
         	else if(message.equals(prefix + "status"))
         	{
-        		if(Main.irc!=null && Main.irc.isOpen())
+        		if(MainClient.irc!=null && MainClient.irc.isOpen())
         		{
-        			ChatUtils.message("\u00A7aConnected to this server: \u00A7e" + Main.irc.getServer() + "\u00A7a Channel: \u00A7e" + Main.irc.getChannelname());
+        			ChatUtils.message("\u00A7aConnected to this server: \u00A7e" + MainClient.irc.getServer() + "\u00A7a Channel: \u00A7e" + MainClient.irc.getChannelname());
         		}
         		else
         		{
@@ -78,11 +80,11 @@ public class ChatManager
         		{
         			if(Ircgroup.getIp()!="" && Ircgroup.getChannel()!="" && Ircgroup.getBackupnick()!="" && Ircgroup.getChannel()!="")
         			{
-        				if(Main.irc != null && Main.irc.getSocket()!=null)
+        				if(MainClient.irc != null && MainClient.irc.getSocket()!=null)
         				{
-        					if(Main.irc.isOpen())
+        					if(MainClient.irc.isOpen())
         					{
-        						Main.irc.closeConnection();
+        						MainClient.irc.closeConnection();
         					}	
         				}
         				
@@ -91,15 +93,15 @@ public class ChatManager
         				if(Character.isDigit(nick.charAt(0)))
         					nick = Ircgroup.getBackupnick();
         				
-        				Main.irc = new IRCHandler(Ircgroup.getIp(),nick,Ircgroup.getChannel(),Ircgroup.getPassword());
+        				MainClient.irc = new IRCHandler(Ircgroup.getIp(),nick,Ircgroup.getChannel(),Ircgroup.getPassword(),Ircgroup.getPort());
 
-        				Main.irc.startConn();
+        				MainClient.irc.startConn();
         			}
         			else
         			{
         				ChatUtils.message("\u00A7cError\n"
         					  + "\u00A7eMissing config fields or Syntax Error\n"
-  							  + "\u00A7e(usage: "+prefix+"connect serverip;channel;password)\u00A7f");
+  							  + "\u00A7eusage: "+prefix+"connect serverip;port;channel;password \n(password is optional)\u00A7f");
         				System.out.println("Unable to Connect: Missing config fields or Syntax Error");
         			}
         		}
@@ -112,7 +114,7 @@ public class ChatManager
 
             		if(fields.length<2)
             		{
-            			ChatUtils.message("\u00A7cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
+            			ChatUtils.message("\u00A7cTry again. Some important fields are empty");
             		}
             		else
             		{  			
@@ -121,33 +123,46 @@ public class ChatManager
             			{
             				nick = ChatUtils.getUsername();
             			}
-            			channel = fields[1];
-            			if(fields.length>2)
+            			
+            			try {
+            				port = Integer.parseInt(fields[1]);
+            			}
+            			catch(Exception e) {
+            				ChatUtils.message("\u00A7cError: port must be a number, fallback to default");
+            				port = 6667;
+            			}
+            			channel = fields[2];
+            			if(fields.length>3)
             			{
-            				password = fields[2];
+            				password = fields[3];
             			}
             			
+            			if(port>=65536)
+            			{
+            				ChatUtils.message("\u00A7cError: port must be valid, fallback to default");
+            				port = 6667;
+            			}
 
             			if(!Character.isDigit(nick.charAt(0)))
             			{
             				takename = true;
             				if(ip!="" && nick!="" && channel!="")
                     		{
-                				if(Main.irc != null && Main.irc.getSocket()!=null)
+                				if(MainClient.irc != null && MainClient.irc.getSocket()!=null)
                 				{
-                					if(Main.irc.isOpen())
+                					if(MainClient.irc.isOpen())
                 					{
-                						Main.irc.closeConnection();
+                						MainClient.irc.closeConnection();
                 					}	
                 				}
                 				
-                				Main.irc = new IRCHandler(ip,nick,channel,password);
+                				MainClient.irc = new IRCHandler(ip,nick,channel,password,port);
 
-                				Main.irc.startConn();
+                				MainClient.irc.startConn();
                     		}
             				else
                     		{
-                    			ChatUtils.message("\u00A7cTRY AGAIN! SOME IMPORTANT FIELDS ARE EMPTY");
+                    			ChatUtils.message("\u00A7cTry again. Some important fields are empty");
                     		}
             			}
             			else
@@ -164,9 +179,9 @@ public class ChatManager
         	}
         	else if(message.equals(prefix + "disconnect"))
         	{
-        		if(Main.irc!=null && Main.irc.isOpen())
+        		if(MainClient.irc!=null && MainClient.irc.isOpen())
         		{
-        			Main.irc.closeConnection();
+        			MainClient.irc.closeConnection();
         			ChatUtils.message("\u00A7cDisconnected");
         		}
         		
@@ -174,16 +189,16 @@ public class ChatManager
         	}
         	else
         	{
-        		if (Main.irc!=null && Main.irc.isOpen() && String.valueOf(message.charAt(0)).equals(global))
+        		if (MainClient.irc!=null && MainClient.irc.isOpen() && String.valueOf(message.charAt(0)).equals(global))
         		{
         			previusGlobal = message.substring(1, message.length());
         			ChatUtils.sudomessage(message.substring(1, message.length()));
         			info.cancel();
         		}
-        		else if(Main.irc!=null && Main.irc.isOpen() && !String.valueOf(message.charAt(0)).equals("/") && !message.equals(previusGlobal))
+        		else if(MainClient.irc!=null && MainClient.irc.isOpen() && !String.valueOf(message.charAt(0)).equals("/") && !message.equals(previusGlobal))
         		{
-        			Main.irc.sendGroupMsg(message);
-        			ChatUtils.message("\u00A7b" + Main.irc.getNick() + " \u00A7f>> " + message);
+        			MainClient.irc.sendGroupMsg(message);
+        			ChatUtils.message("\u00A7b" + MainClient.irc.getNick() + " \u00A7f>> " + message);
         			info.cancel();
         		}
         		

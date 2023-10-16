@@ -15,6 +15,8 @@ public class IRCHandler
     
     private String password = "";
     
+    private Integer port = 6667;
+    
     
     private BufferedWriter writer;
     private BufferedReader reader;
@@ -25,13 +27,14 @@ public class IRCHandler
     
     private AtomicBoolean processed = new AtomicBoolean(true);
 
-    public IRCHandler(String server, String nick, String channelname, String password) 
+    public IRCHandler(String server, String nick, String channelname, String password, Integer port) 
     {
 		super();
 		this.server = server;
 		this.nick = nick;
 		this.channelname = channelname;
 		this.password = password;
+		this.port = port;
 	}
     
     
@@ -39,7 +42,7 @@ public class IRCHandler
 		new Thread(() -> {
 			try 
 			{
-				socket = new Socket(server, 6667);
+				socket = new Socket(server, port);
 				
 				writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 				

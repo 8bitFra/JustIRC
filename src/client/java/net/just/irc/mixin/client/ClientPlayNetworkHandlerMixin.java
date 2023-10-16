@@ -1,4 +1,4 @@
-package net.just.irc.mixin;
+package net.just.irc.mixin.client;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,17 +10,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.just.irc.ChatUtils;
 import net.just.irc.Ircgroup;
 import net.just.irc.Main;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.Packet;
-import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.client.network.ClientCommonNetworkHandler;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.listener.ClientPacketListener;
 
-@Mixin(ClientPlayNetworkHandler.class)
-public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketListener
+@Mixin(ClientCommonNetworkHandler.class)
+public abstract class ClientPlayNetworkHandlerMixin implements ClientPacketListener
 {
 	
 		@Inject(
 			at = @At("HEAD"),
-			method = "sendPacket(Lnet/minecraft/network/Packet;)V",
+			method = "sendPacket(Lnet/minecraft/network/packet/Packet;)V",
 			cancellable = true
 		)
 		

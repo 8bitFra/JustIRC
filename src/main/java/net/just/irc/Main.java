@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 
 public class Main implements ModInitializer {
 	
-	public static IRCHandler irc = null;
 	
 	public static boolean autoconnect = true;
 	
