@@ -6,6 +6,6 @@
 	"config.justirc.ircgroup.port": "Port",
 	"config.justirc.ircgroup.autoconnect": "Startup Connect",
 	"key.justirc.config": "Config GUI",
-	"key.justirc.connection": "connect/disconnect",
+	"key.justirc.connection": "Connect/Disconnect",
 	"category.justirc.main": "Just IRC"
 }
